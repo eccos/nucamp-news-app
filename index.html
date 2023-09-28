@@ -9,12 +9,14 @@
         * {
             box-sizing: border-box;
         }
+
         .article-card {
             width: 30%;
             display: inline-block;
             border: 2px solid black;
             margin: .5em;
             padding: .5em;
+            vertical-align: top;
         }
 
         .article-card img {
@@ -25,6 +27,18 @@
 
 <body>
     <h1>Top Headlines</h1>
+    <div id="category-filter">
+        Filter news by category
+        <ul>
+            <li><a href="#">business</a></li>
+            <li><a href="#">entertainment</a></li>
+            <li><a href="#">general</a></li>
+            <li><a href="#">health</a></li>
+            <li><a href="#">science</a></li>
+            <li><a href="#">sports</a></li>
+            <li><a href="#">technology</a></li>
+        </ul>
+    </div>
     <div id="news"></div>
     <script src="scripts.js" type="module"></script>
 </body>
