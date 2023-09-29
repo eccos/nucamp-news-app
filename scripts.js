@@ -2,17 +2,22 @@
 const apiKey = process.env.NEWS_API_KEY;
 const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`;
 const newsDiv = document.querySelector("#news");
-const catFilters = document.querySelector("#category-filter ul").children;
+const catFilterLinks = document.querySelectorAll("#category-filter ul a");
 
-for (const catFilter of catFilters) {
-    catFilter.children[0].onclick = (e) => {
-        const cat = e.currentTarget.textContent;
+for (const catLink of catFilterLinks) {
+    catLink.onclick = (e) => {
+        const self = e.currentTarget;
+        catFilterLinks.forEach(link => link.classList.remove("active", "disabled"));
+        self.classList.add("active", "disabled");
+        
         clearChildrenOf(newsDiv);
+
         const h2 = document.createElement("h2");
-        h2.textContent = cat + " news";
+        h2.textContent = self.textContent + " news";
         h2.style.textTransform = "capitalize";
+
         newsDiv.appendChild(h2);
-        fetchNews(cat);
+        fetchNews(self.textContent);
     }
 }
 
@@ -51,7 +56,7 @@ function createCard({ title = "", author = "", description = "", url = "", urlTo
     description = description === null ? "" : description;
 
     const card = document.createElement('div');
-    card.classList.add('card');
+    card.classList.add('card', "shadow-sm");
     card.innerHTML = (urlToImage) ? `<img src="${urlToImage}" class="card-img-top" alt="news article">` : "";
 
     const cardBody = document.createElement('div');
