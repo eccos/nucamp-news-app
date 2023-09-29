@@ -10,6 +10,7 @@ for (const catFilter of catFilters) {
         clearChildrenOf(newsDiv);
         const h2 = document.createElement("h2");
         h2.textContent = cat + " news";
+        h2.style.textTransform = "capitalize";
         newsDiv.appendChild(h2);
         fetchNews(cat);
     }
@@ -36,18 +37,22 @@ async function fetchNews(category) {
 function displayNews(articles) {
     articles.forEach(article => {
         const card = createCard(article);
-        newsDiv.appendChild(card);
+        const col = document.createElement("div");
+        col.className = "col mb-3";
+        col.appendChild(card);
+
+        newsDiv.appendChild(col);
     });
 }
 
-function createCard({ title = "", author = "", description = "", url = "", urlToImage = "" }) {
+function createCard({ title = "", author = "", description = "", url = "", urlToImage = "", publishedAt = "" }) {
     title = title === null ? "" : title;
     author = author === null ? "" : author;
     description = description === null ? "" : description;
 
     const card = document.createElement('div');
     card.classList.add('card');
-    card.innerHTML = (urlToImage) ? `<img src="${urlToImage}" class="card-img-top" alt="news article">`: "";
+    card.innerHTML = (urlToImage) ? `<img src="${urlToImage}" class="card-img-top" alt="news article">` : "";
 
     const cardBody = document.createElement('div');
     cardBody.classList.add('card-body');
@@ -58,6 +63,8 @@ function createCard({ title = "", author = "", description = "", url = "", urlTo
       <h6 class="card-subtitle mb-2 text-body-secondary">${author}</h6>
       <p class="card-text">${description}</p>
     `;
+
+    // card.innerHTML += (publishedAt) ? `<div class="card-footer text-body-secondary">${publishedAt}</div>` : "";
 
     card.appendChild(cardBody);
     return card;
