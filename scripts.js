@@ -36,43 +36,28 @@ async function fetchNews(category) {
 function displayNews(articles) {
     articles.forEach(article => {
         const { author, description, title, url, urlToImage } = article;
-
-        const card = document.createElement("div");
-        const head = document.createElement("div");
-        const body = document.createElement("div");
-        const header = document.createElement("div");
-        const main = document.createElement("div");
-
-        card.className = "article-card";
-        head.className = "card-head";
-        body.className = "card-body";
-        header.className = "card-body-header";
-        main.className = "card-body-main";
-
-        card.appendChild(head);
-        card.appendChild(body);
-        body.appendChild(header);
-        body.appendChild(main);
-
-        const thumb = document.createElement("img");
-        const linkTitle = document.createElement("a");
-        const hTitle = document.createElement("h3");
-        const hAuthor = document.createElement("h4");
-        const desc = document.createElement("p");
-
-        thumb.src = urlToImage;
-        linkTitle.href = url;
-        hTitle.textContent = title;
-        hAuthor.textContent = author;
-        desc.textContent = description;
-
-        head.appendChild(thumb);
-        linkTitle.appendChild(hTitle);
-        header.appendChild(linkTitle);
-        header.appendChild(hAuthor);
-        main.appendChild(desc);
-
+        const card = createCard(article);
         newsDiv.appendChild(card);
-
     });
+}
+
+function createCard({ author, description, title, url, urlToImage }) {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.innerHTML = `
+      <img src="${urlToImage}" class="card-img-top" alt="news article">
+    `;
+
+    const cardBody = document.createElement('div');
+    cardBody.classList.add('card-body');
+    cardBody.innerHTML = `
+      <h5 class="card-title">
+        <a href="${url}" class="card-link">${title}</a>
+      </h5>
+      <h6 class="card-subtitle mb-2 text-body-secondary">${author}</h6>
+      <p class="card-text">${description}</p>
+    `;
+
+    card.appendChild(cardBody);
+    return card;
 }
