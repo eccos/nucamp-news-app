@@ -6,8 +6,11 @@
 - HTML
 - CSS
 - JS
+- Bootstrap
 - Node.js
 - Parcel
+
+![news app screenshot](Web%20capture_29-9-2023_143131_localhost.jpeg)
 
 ## Setup: Run App Locally
 - Download news app ZIP via the "<> Code" button > Local Tab
