@@ -35,18 +35,19 @@ async function fetchNews(category) {
 
 function displayNews(articles) {
     articles.forEach(article => {
-        const { author, description, title, url, urlToImage } = article;
         const card = createCard(article);
         newsDiv.appendChild(card);
     });
 }
 
-function createCard({ author, description, title, url, urlToImage }) {
+function createCard({ title = "", author = "", description = "", url = "", urlToImage = "" }) {
+    title = title === null ? "" : title;
+    author = author === null ? "" : author;
+    description = description === null ? "" : description;
+
     const card = document.createElement('div');
     card.classList.add('card');
-    card.innerHTML = `
-      <img src="${urlToImage}" class="card-img-top" alt="news article">
-    `;
+    card.innerHTML = (urlToImage) ? `<img src="${urlToImage}" class="card-img-top" alt="news article">`: "";
 
     const cardBody = document.createElement('div');
     cardBody.classList.add('card-body');
